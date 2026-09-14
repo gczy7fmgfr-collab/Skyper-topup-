@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyper Top UP - MLBB</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #0b132b; color: #fff; margin: 0; padding: 20px 10px; display: flex; justify-content: center; }
+    
+    .card { 
+      background: linear-gradient(145deg, #1c2541, #0b132b); 
+      border: 1px solid #3a506b; 
+      border-radius: 16px; 
+      padding: 24px; 
+      max-width: 420px; 
+      width: 100%; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    }
+    
+    .header { text-align: center; margin-bottom: 20px; }
+    .banner-img { 
+      width: 140px; 
+      height: auto; 
+      border-radius: 12px; 
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 8px rgba(0, 180, 216, 0.4));
+    }
+    .welcome-text { 
+      color: #ffd166; 
+      font-size: 15px; 
+      font-weight: bold; 
+      margin: 8px 0 15px 0; 
+      text-shadow: 0 0 5px rgba(255, 209, 102, 0.3);
+    }
+    .header h2 { color: #48cae4; margin: 0; font-size: 26px; text-shadow: 0 0 10px rgba(72, 202, 228, 0.4); }
+    
+    .form-group { margin-bottom: 15px; text-align: left; }
+    label { font-size: 14px; color: #90e0ef; display: block; margin-bottom: 5px; font-weight: bold; }
+    
+    .input-box { display: flex; gap: 8px; }
+    input { 
+      width: 100%; 
+      padding: 12px; 
+      border-radius: 8px; 
+      border: 1px solid #3a506b; 
+      background: #1c2541; 
+      color: #fff; 
+      font-size: 15px; 
+      outline: none; 
+      transition: 0.3s;
+    }
+    input:focus { border-color: #00b4d8; box-shadow: 0 0 8px rgba(0,180,216,0.5); }
+    
+    .btn-check { 
+      width: 100%; 
+      background: linear-gradient(90deg, #0077b6, #00b4d8); 
+      color: #fff; 
+      border: none; 
+      padding: 12px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      margin-top: 10px;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(0,180,216,0.3);
+      transition: 0.3s;
+    }
+    .btn-check:hover { opacity: 0.9; transform: translateY(-1px); }
+    
+    #playerName { text-align: center; color: #52b788; font-weight: bold; margin: 12px 0; min-height: 24px; font-size: 15px; }
+    
+    .pkg-title { text-align: left; color: #90e0ef; font-size: 14px; font-weight: bold; margin: 15px 0 10px; display: flex; align-items: center; gap: 6px; }
+    
+    .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .pkg-item { 
+      background: #1c2541; 
+      border: 1px solid #3a506b; 
+      border-radius: 12px; 
+      padding: 14px 10px; 
+      text-align: center; 
+      cursor: pointer; 
+      transition: 0.3s;
+    }
+    .pkg-item:hover, .pkg-item.active { border-color: #00b4d8; background: #0077b6; box-shadow: 0 0 12px rgba(0,180,216,0.4); }
+    .pkg-item .diamond-icon { font-size: 28px; display: block; margin-bottom: 5px; }
+    .pkg-item .dm { font-size: 14px; font-weight: bold; display: block; color: #fff; }
+    .pkg-item .price { font-size: 13px; color: #ffd166; font-weight: bold; margin-top: 3px; display: block; }
+    
+    .btn-submit { 
+      width: 100%; 
+      background: linear-gradient(90deg, #ef476f, #ff0054); 
+      color: #fff; 
+      border: none; 
+      padding: 14px; 
+      border-radius: 10px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      box-shadow: 0 4px 15px rgba(239,71,111,0.4);
+      transition: 0.3s;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <img src="https://i.ibb.co/C0hYpB7/IMG-1306.jpg" alt="Welcome Image" class="banner-img">
+    <div class="welcome-text">បញ្ចូលពេជ្យហ្គេមដោយសុវត្តិភាព24ម៉ោង🙏🏼</div>
+    <h2>Skyper Top UP</h2>
+  </div>
+
+  <div class="form-group">
+    <label>បញ្ចូលព័ត៌មានគណនី (ID & Zone)</label>
+    <div class="input-box">
+      <input type="number" id="userId" placeholder="User ID">
+      <input type="number" id="zoneId" placeholder="Zone ID" style="width: 45%;">
+    </div>
+  </div>
+
+  <button class="btn-check" onclick="checkMLBBName()">🔍 ពិនិត្យមើលឈ្មោះ (Check ID)</button>
+
+  <p id="playerName"></p>
+
+  <div class="pkg-title">
+    <span>💎</span>
+    <span>ជ្រើសរើសកញ្ចប់ពេជ្រ ៖</span>
+  </div>
+
+  <div class="pkg-grid">
+    <div class="pkg-item active" onclick="selectPackage(this, '1.50')">
+      <span class="diamond-icon">💎</span>
+      <span class="dm">86 Diamonds</span>
+      <span class="price">$1.50</span>
+    </div>
+    <div class="pkg-item" onclick="selectPackage(this, '3.00')">
+      <span class="diamond-icon">💎</span>
+      <span class="dm">172 Diamonds</span>
+      <span class="price">$3.00</span>
+    </div>
+    <div class="pkg-item" onclick="selectPackage(this, '3.50')">
+      <span class="diamond-icon">🛡️</span>
+      <span class="dm">Weekly Pass</span>
+      <span class="price">$3.50</span>
+    </div>
+    <div class="pkg-item" onclick="selectPackage(this, '4.50')">
+      <span class="diamond-icon">💎</span>
+      <span class="dm">257 Diamonds</span>
+      <span class="price">$4.50</span>
+    </div>
+  </div>
+
+  <button class="btn-submit" onclick="submitOrder()">ស្កែនទូទាត់ប្រាក់ (KHQR)</button>
+</div>
+
+<script>
+var selectedPrice = "1.50";
+
+function selectPackage(element, price) {
+  var items = document.querySelectorAll('.pkg-item');
+  items.forEach(item => item.classList.remove('active'));
+  element.classList.add('active');
+  selectedPrice = price;
+}
+
+async function checkMLBBName() {
+  var uId = document.getElementById('userId').value;
+  var zId = document.getElementById('zoneId').value;
+  var nameDisplay = document.getElementById('playerName');
+
+  if (!uId || !zId) {
+    alert("សូមបញ្ចូលទាំង User ID និង Zone ID ជាមុនសិន!");
+    return;
+  }
+
+  nameDisplay.innerText = "⏳ កំពុងស្វែងរកឈ្មោះ...";
+
+  try {
+    var response = await fetch('https://api.vyturex.com/mlbb?id=' + uId + '&zone=' + zId);
+    var data = await response.json();
+    if (data && (data.username || data.name)) {
+      nameDisplay.innerText = "✅ ឈ្មោះ៖ " + (data.username || data.name);
+      return;
+    }
+  } catch (e) {}
+
+  try {
+    var response2 = await fetch('https://api.isan.eu.org/nickname/ml?id=' + uId + '&zone=' + zId);
+    var data2 = await response2.json();
+    if (data2 && (data2.name || data2.username)) {
+      nameDisplay.innerText = "✅ ឈ្មោះ៖ " + decodeURIComponent(data2.name || data2.username);
+      return;
+    }
+  } catch (e) {}
+
+  nameDisplay.innerText = "❌ មិនអាចទាញឈ្មោះបាន (សូមពិនិត្យ ID ឡើងវិញ)";
+}
+
+function submitOrder() {
+  var uId = document.getElementById('userId').value;
+  var zId = document.getElementById('zoneId').value;
+
+  if(!uId || !zId) {
+    alert("សូមបញ្ចូល User ID និង Zone ID ឱ្យបានត្រឹមត្រូវ!");
+    return;
+  }
+  alert("កំម៉ង់បានជោគជ័យ! តម្លៃ៖ $" + selectedPrice);
+}
+</script>
+
+</body>
+</html>
