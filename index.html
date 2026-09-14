@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skyper Top UP</title>
+  <style>
+    body { font-family: sans-serif; background-color: #0f172a; color: #fff; padding: 20px; text-align: center; }
+    .card { background: #1e293b; padding: 20px; border-radius: 12px; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    h2 { color: #38bdf8; margin-bottom: 20px; }
+    input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; box-sizing: border-box; font-size: 16px; }
+    button { background: #0284c7; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; }
+    #playerName { color: #4ade80; font-weight: bold; margin: 10px 0; min-height: 24px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>💎 Skyper Top UP</h2>
+  
+  <input type="number" id="userId" placeholder="បញ្ចូល User ID">
+  <input type="number" id="zoneId" placeholder="បញ្ចូល Zone ID" oninput="checkMLBBName()">
+
+  <p id="playerName"></p>
+
+  <select id="package">
+    <option value="1.50">💎 86 Diamonds - $1.50</option>
+    <option value="3.00">💎 172 Diamonds - $3.00</option>
+    <option value="3.50">🛡️ Weekly Pass - $3.50</option>
+    <option value="4.50">💎 257 Diamonds - $4.50</option>
+    <option value="12.00">💎 706 Diamonds - $12.00</option>
+  </select>
+
+  <button onclick="submitOrder()">ស្កែនទូទាត់ប្រាក់ (KHQR)</button>
+</div>
+
+<script>
+function checkMLBBName() {
+  var uId = document.getElementById('userId').value;
+  var zId = document.getElementById('zoneId').value;
+  var nameDisplay = document.getElementById('playerName');
+
+  if (uId.length >= 8 && zId.length >= 4) {
+    nameDisplay.innerText = "⏳ កំពុងស្វែងរកឈ្មោះ...";
+    fetch('https://api.vyturex.com/mlbb?id=' + uId + '&zone=' + zId)
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.username) {
+          nameDisplay.innerText = "✅ ឈ្មោះ៖ " + data.username;
+        } else {
+          nameDisplay.innerText = "❌ រកមិនឃើញ ID នេះទេ!";
+        }
+      })
+      .catch(function(err) {
+        nameDisplay.innerText = "⚠️ មិនអាច Check ឈ្មោះបានទេ";
+      });
+  }
+}
+
+function submitOrder() {
+  var uId = document.getElementById('userId').value;
+  var zId = document.getElementById('zoneId').value;
+  var pkg = document.getElementById('package').value;
+
+  if(!uId || !zId) {
+    alert("សូមបញ្ចូល User ID និង Zone ID ឱ្យបានត្រឹមត្រូវ!");
+    return;
+  }
+  alert("កំម៉ង់បានជោគជ័យ! តម្លៃ៖ $" + pkg);
+}
+</script>
+
+</body>
+</html>
